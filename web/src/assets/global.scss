@@ -1,0 +1,45 @@
+td {
+  font-size: 12px !important;
+}
+
+@mixin stick-to-left {
+  position: sticky !important;
+  position: -webkit-sticky !important;
+  &.expand {
+    padding: 2px !important;
+    left: 0;
+    width: 20px;
+    min-width: 20px;
+    max-width: 20px;
+  }
+  &.expand-2 {
+    padding: 2px !important;
+    left: 20px;
+    width: 20px;
+    min-width: 20px;
+    max-width: 20px;
+  }
+  &.partner_code {
+    left: 40px;
+  }
+  &.balance_name {
+    left: 200px;
+  }
+}
+
+.sticky-header {
+  @include stick-to-left;
+  z-index: 3 !important;
+}
+
+.sticky-column {
+  @include stick-to-left;
+  z-index: 1;
+  background-color: inherit;
+  box-shadow: inherit;
+}
+
+.v-data-table__progress {
+  position: relative !important;
+  z-index: 4 !important;
+}

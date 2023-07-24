@@ -1,0 +1,14 @@
+alembic==1.8.1
+fastapi==0.78.0
+psycopg2-binary==2.9.4
+databases
+asyncio
+asyncpg
+sqlalchemy[asyncio]==1.4.41
+tenacity==8.0.1
+uvicorn==0.17.6
+
+httpx
+pytest
+pytest-asyncio
+pytest-cov

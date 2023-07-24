@@ -1,0 +1,48 @@
+version: '3'
+services:
+
+  db:
+    image: postgres:14
+    ports:
+      - "5433:5432"
+    volumes:
+      - app-db-data:/var/lib/postgresql/data/pgdata
+    env_file:
+      - .env
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+
+  backend:
+    image: tfa-backend
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      - "POSTGRES_SERVER=db"
+      - "POSTGRES_PORT=5432"
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/tfa/
+
+#  web:
+#    image: tfa-frontend
+#    depends_on:
+#      - backend
+#    build:
+#      context: web
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      - "VUE_APP_API_URLS=http://localhost:8000/"
+#      - "TFA_ENV=local"
+#    volumes:
+#      - ./web:/srv/
+
+volumes:
+  app-db-data:
