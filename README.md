@@ -45,6 +45,10 @@ This forecasting and wire calculation is a minimum valuable product for Treasury
    that only Daily is used and show only daily traffic (both forecasted and actual).
    - Chart is done.
 
+In terms of priorities, Wire Amount calculation is nice to have feature.
+So you may drop it, if you are out of time.
+
+
 ### 💎 Quality requirements
 We expect at least basic tests for web app and some test cases for python code (both for api and db parts).
 This project has some examples.
