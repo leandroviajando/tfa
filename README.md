@@ -53,7 +53,7 @@ So you may drop it, if you are out of time.
 We expect at least basic tests for web app and some test cases for python code (both for api and db parts).
 This project has some examples.
 
-Please state any assumptions that you make.
+Please state any assumptions that you make, or ask questions in case of ambiguity/incompleteness of requirements.
 
 
 ## 💻Development
@@ -147,6 +147,9 @@ Ran all test suites.
 
 ## Support
 If you have any questions, don't hesitate to ask via email <yunus.zaitaev@thunes.com> 🤝
+
+## Next step
+We will have a Panel Interveiew meeting to discuss your solution. Kindly prepare a short 5-10min overview/demo of your solution. Thank you in advance!
 
 Good luck!!!
 
