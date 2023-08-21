@@ -148,7 +148,8 @@ Ran all test suites.
 ## Support
 If you have any questions, don't hesitate to ask via email <yunus.zaitaev@thunes.com> 🤝
 
-## Next step
+## Delivery and next step
+Kindly fork this repository, but don't create PR. Instead, add me (@dadwin) and Pierre (@pierre-vigier) as collaborators.
 We will have a Panel Interveiew meeting to discuss your solution. Kindly prepare a short 5-10min overview/demo of your solution. Thank you in advance!
 
 Good luck!!!
