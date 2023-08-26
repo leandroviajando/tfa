@@ -2,7 +2,6 @@ import sqlalchemy
 from sqlalchemy.sql import func
 from sqlalchemy.sql.schema import UniqueConstraint
 
-
 metadata = sqlalchemy.MetaData()
 
 CURRENCY = sqlalchemy.Numeric(24, 8)

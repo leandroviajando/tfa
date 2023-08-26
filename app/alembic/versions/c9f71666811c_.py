@@ -5,15 +5,14 @@ Revises: fdd6cf7610c2
 Create Date: 2023-07-19 18:46:26.911934
 
 """
-from alembic import op
-import sqlalchemy as sa
 import csv
 
+from alembic import op
 from src.data import balance_movements, receiving_partner_balances
 
 # revision identifiers, used by Alembic.
-revision = 'c9f71666811c'
-down_revision = 'fdd6cf7610c2'
+revision = "c9f71666811c"
+down_revision = "fdd6cf7610c2"
 branch_labels = None
 depends_on = None
 

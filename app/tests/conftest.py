@@ -1,9 +1,8 @@
 from typing import Iterator
 
 import pytest_asyncio
-import pytest
-from main import app
 from httpx import AsyncClient
+from main import app
 
 
 @pytest_asyncio.fixture

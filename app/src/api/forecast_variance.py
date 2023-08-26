@@ -1,16 +1,16 @@
-from typing import List
-from fastapi import APIRouter, Depends, HTTPException
-from databases import Database
 from datetime import date
 
-from src import models, services
+from databases import Database
+from fastapi import APIRouter, Depends
+
+from src import models
 from src.dependencies import get_db
 
 router = APIRouter()
 
 
 @router.get("/forecast_variance/{balance_id}", response_model=models.ForecastVariance)
-def get_transfers(
+def get_forecast_variance(
     balance_id: int,
     from_date: date = None,
     to_date: date = None,

@@ -1,12 +1,15 @@
 import asyncio
+import logging
+import sys
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+from src.api import balance_movements, balances, forecast_variance
 from src.internal.database import database
-from src.api import balances, forecast_variance, balance_movements
 
-app = FastAPI(title="WalletService", openapi_url=f"/api/v1/openapi.json")
+logging.basicConfig(level=logging.INFO, stream=sys.stdout)
+
+app = FastAPI(title="WalletService", openapi_url="/api/v1/openapi.json")
 
 app.add_middleware(
     CORSMiddleware,
@@ -23,7 +26,7 @@ async def startup():
         try:
             await database.connect()
             break
-        except:
+        except Exception:
             await asyncio.sleep(1)
             continue
 
