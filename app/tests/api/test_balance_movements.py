@@ -2,7 +2,7 @@ import pytest
 from unittest import mock
 from datetime import date
 from fastapi import status
-from app.internal.database import database
+from src.internal.database import database
 
 
 @pytest.mark.asyncio
@@ -14,7 +14,7 @@ async def test_empty_balance_movements(async_client):
     test_path = f"/api/v1/balance_movements/{balance_id}?from_date={from_date}&to_date={to_date}"
 
     with mock.patch(
-        "app.services.get_balance_movement",
+        "src.services.get_balance_movement",
         return_value=[],
     ) as mock_get_bms:
         response = await async_client.get(test_path)

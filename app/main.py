@@ -3,8 +3,8 @@ import asyncio
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .internal.database import database
-from .routers import balances, forecast_variance, balance_movements
+from src.internal.database import database
+from src.api import balances, forecast_variance, balance_movements
 
 app = FastAPI(title="WalletService", openapi_url=f"/api/v1/openapi.json")
 
@@ -19,7 +19,6 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def startup():
-    # await database.connect()
     for _ in range(3):
         try:
             await database.connect()

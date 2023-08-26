@@ -1,6 +1,9 @@
 FROM node:15.14.0
-COPY . /srv
-WORKDIR /srv
+
+COPY . /tfa/web
+
+WORKDIR /tfa/web
+
 RUN yarn install
 
-CMD yarn --silent serve
+CMD yarn serve --silent

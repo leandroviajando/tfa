@@ -3,14 +3,14 @@ from typing import List
 from pydantic.tools import parse_obj_as
 from datetime import date, datetime
 
-from app import models, data
+from src import models
 from sqlalchemy.orm import Session
 from sqlalchemy.sql import func
 from databases import Database
 
 from sqlalchemy import Integer, String, and_, case, cast, column, literal, or_, select, text
 
-from app.data import balance_movements
+from src.data import balance_movements
 
 
 class ErrorBase(Exception):
@@ -18,7 +18,11 @@ class ErrorBase(Exception):
 
 
 class NoBalanceMovementError(ErrorBase):
-    """"""
+    """No balance movements"""
+
+
+class NoUserAccountError(ErrorBase):
+    """No user account"""
 
 
 def date_to_datetime(d: date):

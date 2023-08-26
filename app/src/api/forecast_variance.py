@@ -3,8 +3,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from databases import Database
 from datetime import date
 
-from app import models, services
-from app.dependencies import get_db
+from src import models, services
+from src.dependencies import get_db
 
 router = APIRouter()
 

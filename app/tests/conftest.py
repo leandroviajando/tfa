@@ -2,7 +2,7 @@ from typing import Iterator
 
 import pytest_asyncio
 import pytest
-from app.main import app
+from main import app
 from httpx import AsyncClient
 
 

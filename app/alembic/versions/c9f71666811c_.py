@@ -9,7 +9,7 @@ from alembic import op
 import sqlalchemy as sa
 import csv
 
-from app.data import balance_movements, receiving_partner_balances
+from src.data import balance_movements, receiving_partner_balances
 
 # revision identifiers, used by Alembic.
 revision = 'c9f71666811c'
