@@ -1,0 +1,11 @@
+[tool.black]
+line-length = 125
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+exclude = ".venv/|notebooks/"
+explicit_package_bases = "True"
+ignore_missing_imports = "True"
+namespace_packages = "True"

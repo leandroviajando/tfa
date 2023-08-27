@@ -12,3 +12,8 @@ httpx
 pytest
 pytest-asyncio
 pytest-cov
+
+mypy
+black
+isort
+flake8

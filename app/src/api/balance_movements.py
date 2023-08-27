@@ -12,8 +12,8 @@ router = APIRouter()
 @router.get("/balance_movements/{balance_id}", response_model=List[models.BalanceMovement])
 async def get_balance_movements(
     balance_id: int,
-    from_date: date = None,
-    to_date: date = None,
+    from_date: date | None = None,
+    to_date: date | None = None,
     db: Database = Depends(get_db),
 ):
     try:

@@ -12,8 +12,8 @@ router = APIRouter()
 @router.get("/forecast_variance/{balance_id}", response_model=models.ForecastVariance)
 def get_forecast_variance(
     balance_id: int,
-    from_date: date = None,
-    to_date: date = None,
+    from_date: date | None = None,
+    to_date: date | None = None,
     db: Database = Depends(get_db),
 ):
     return models.ForecastVariance(
