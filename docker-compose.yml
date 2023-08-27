@@ -12,6 +12,20 @@ services:
     volumes:
       - app-db-data:/var/lib/postgresql/data/pgdata
 
+  notebooks:
+    image: tfa-notebooks
+    depends_on:
+      - db
+    build:
+      context: notebooks
+      dockerfile: Dockerfile
+    env_file:
+      - ./app/.env
+    ports:
+      - 8888:8888
+    volumes:
+      - ./notebooks:/tfa/notebooks
+
   app:
     image: tfa-app
     depends_on:
