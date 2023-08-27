@@ -150,3 +150,14 @@ async def topup(balance_id: int, dt: date, db: Database, topup_service: TopupSer
         )
 
     return topup
+
+
+async def get_topup(balance_id: int, dt: date, db: Database) -> models.Topup:
+    query = select([topups]).select_from(topups).where(topups.c.balance_id == balance_id).where(topups.c.topup_date == dt)
+
+    row = await db.fetch_one(query)
+
+    if not row:
+        raise exceptions.NotFoundError(f"Topup for balance_id={balance_id} and dt={dt} not found")
+
+    return parse_obj_as(models.Topup, row)
