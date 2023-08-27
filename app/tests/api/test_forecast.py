@@ -23,3 +23,20 @@ async def test_forecast(async_client: AsyncClient) -> None:
 
     assert response.status_code == status.HTTP_201_CREATED
     assert response.json() == {"balance_id": balance_id, "forecast_date": "2022-02-01", "forecast_amount": 10}
+
+
+@pytest.mark.asyncio
+async def tetst_get_forecast(async_client: AsyncClient) -> None:
+    balance_id = 1
+    forecast_date = date(2022, 2, 1)
+
+    test_path = f"/api/v1/forecast/{balance_id}/{forecast_date}"
+
+    with mock.patch(
+        "src.services.get_forecast",
+        return_value=models.Forecast(balance_id=balance_id, forecast_date=forecast_date, forecast_amount=Decimal(10)),
+    ):
+        response = await async_client.get(test_path)
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == {"balance_id": balance_id, "forecast_date": "2022-02-01", "forecast_amount": 10}

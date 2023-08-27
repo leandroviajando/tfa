@@ -17,5 +17,13 @@ async def post_forecast(
         return await services.forecast(balance_id, dt, db=db, forecast_model=forecast_model)
     except exceptions.NoBalanceMovementsError as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
-    except exceptions.ForecastAlreadyExistsError as e:
+    except exceptions.AlreadyExistsError as e:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(e))
+
+
+@router.get("/forecast/{balance_id}/{dt}", status_code=status.HTTP_200_OK, response_model=models.Forecast)
+async def get_forecast(balance_id: int, dt: date, db: Database = Depends(get_db)) -> models.Forecast:
+    try:
+        return await services.get_forecast(balance_id, dt, db=db)
+    except exceptions.NotFoundError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))

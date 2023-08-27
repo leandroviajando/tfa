@@ -6,8 +6,12 @@ class NoBalanceMovementsError(ErrorBase):
     """No balance movements"""
 
 
-class ForecastAlreadyExistsError(ErrorBase):
-    """Forecast already exists"""
+class AlreadyExistsError(ErrorBase):
+    """Already exists"""
+
+
+class NotFoundError(ErrorBase):
+    """Not found"""
 
 
 class NoUserAccountError(ErrorBase):

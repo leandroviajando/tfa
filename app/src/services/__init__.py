@@ -84,6 +84,22 @@ async def forecast(balance_id: int, dt: date, db: Database, forecast_model: Fore
     try:
         await db.execute(query=forecasts.insert(), values=forecast.dict())
     except asyncpg.exceptions.UniqueViolationError as _:
-        raise exceptions.ForecastAlreadyExistsError(f"Forecast for balance_id={balance_id} and dt={dt} already exists")
+        raise exceptions.AlreadyExistsError(f"Forecast for balance_id={balance_id} and dt={dt} already exists")
 
     return forecast
+
+
+async def get_forecast(balance_id: int, dt: date, db: Database) -> models.Forecast:
+    query = (
+        select([forecasts])
+        .select_from(forecasts)
+        .where(forecasts.c.balance_id == balance_id)
+        .where(forecasts.c.forecast_date == dt)
+    )
+
+    row = await db.fetch_one(query)
+
+    if not row:
+        raise exceptions.NotFoundError(f"Forecast for balance_id={balance_id} and dt={dt} not found")
+
+    return parse_obj_as(models.Forecast, row)
