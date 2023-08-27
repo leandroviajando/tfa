@@ -100,3 +100,12 @@ class ForecastVariance(BaseModel):
     from_date: Optional[date]
     to_date: Optional[date]
     data: List[ForecastVarianceData] = []
+
+
+class Topup(BaseModel):
+    topup_date: date
+    balance_id: int
+    topup_amount: Decimal
+
+    class Config:
+        orm_mode = True

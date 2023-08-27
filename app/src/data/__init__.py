@@ -43,3 +43,13 @@ forecasts = sqlalchemy.Table(
     sqlalchemy.Column("forecast_amount", CURRENCY, nullable=False),
     UniqueConstraint("forecast_date", "balance_id", name="unique_forecast"),
 )
+
+topups = sqlalchemy.Table(
+    "topups",
+    metadata,
+    sqlalchemy.Column("id", sqlalchemy.BigInteger, primary_key=True, nullable=False),
+    sqlalchemy.Column("topup_date", sqlalchemy.DateTime, nullable=False, index=True),
+    sqlalchemy.Column("balance_id", sqlalchemy.BigInteger, nullable=False, index=True),
+    sqlalchemy.Column("topup_amount", CURRENCY, nullable=False),
+    UniqueConstraint("topup_date", "balance_id", name="unique_topup"),
+)

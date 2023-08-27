@@ -4,7 +4,7 @@ import sys
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.api import balance_movements, balances, forecast, forecast_variance
+from src.api import balance_movements, balances, forecast, forecast_variance, topup
 from src.internal.database import database
 
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
@@ -40,3 +40,4 @@ app.include_router(forecast_variance.router, prefix="/api/v1")
 app.include_router(balances.router, prefix="/api/v1")
 app.include_router(balance_movements.router, prefix="/api/v1")
 app.include_router(forecast.router, prefix="/api/v1")
+app.include_router(topup.router, prefix="/api/v1")
