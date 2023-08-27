@@ -90,7 +90,7 @@ class Forecast(BaseModel):
 class ForecastVarianceData(BaseModel):
     dt: date
     actual_amount: Decimal
-    forecasted_amount: Decimal
+    forecast_amount: Decimal
     variance: Decimal
     mape: float
 

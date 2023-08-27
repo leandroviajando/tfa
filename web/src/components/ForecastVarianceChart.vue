@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import ECharts from 'vue-echarts';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/tooltip';
+import ECharts from 'vue-echarts';
 
 export default {
   components: {
@@ -39,7 +39,7 @@ export default {
       return this.varianceData.map((i) => i.actual_amount);
     },
     forecastedAmount() {
-      return this.varianceData.map((i) => i.forecasted_amount);
+      return this.varianceData.map((i) => i.forecast_amount);
     },
     lineData() {
       return {
@@ -84,7 +84,7 @@ export default {
             yAxisIndex: 0,
           },
           {
-            id: 'forecasted_amount',
+            id: 'forecast_amount',
             name: this.$t('variance.forecast'),
             data: this.forecastedAmount,
             type: 'line',

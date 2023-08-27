@@ -1,10 +1,10 @@
-import { createLocalVue, mount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
-import Vue from 'vue';
-import i18n from '@/plugins/i18n';
-import services_axios from '@/services/axios';
 import ForecastVariance from '@/pages/ForecastVariance.vue';
+import i18n from '@/plugins/i18n';
 import router from '@/router';
+import services_axios from '@/services/axios';
+import { createLocalVue, mount } from '@vue/test-utils';
+import Vue from 'vue';
+import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import { flushPromises } from '../utils';
 
@@ -78,14 +78,14 @@ describe('sending partners forecast variance page test', () => {
       {
         dt: '2022-01-01',
         actual_amount: 10,
-        forecasted_amount: 11,
+        forecast_amount: 11,
         variance: 1,
         mape: 10.0,
       },
       {
         dt: '2022-01-02',
         actual_amount: 15,
-        forecasted_amount: 16,
+        forecast_amount: 16,
         variance: 1,
         mape: 8.0,
       }

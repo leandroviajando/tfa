@@ -1,7 +1,8 @@
 from datetime import date, datetime
 from decimal import Decimal
 from logging import getLogger
-from typing import List
+from statistics import variance
+from typing import List, NamedTuple, cast
 
 import asyncpg
 from databases import Database
@@ -161,3 +162,73 @@ async def get_topup(balance_id: int, dt: date, db: Database) -> models.Topup:
         raise exceptions.NotFoundError(f"Topup for balance_id={balance_id} and dt={dt} not found")
 
     return parse_obj_as(models.Topup, row)
+
+
+def mape(actual: float, forecast: float) -> float:
+    return abs((actual - forecast) / actual)
+
+
+class ForecastVarianceRow(NamedTuple):
+    forecast_date: date
+    actual_amount: Decimal
+    forecast_amount: Decimal
+
+
+async def forecast_variance(
+    db: Database,
+    balance_id: int,
+    from_date: date | None = None,
+    to_date: date | None = None,
+) -> models.ForecastVariance:
+    subquery_actual_amount = (
+        select(
+            balance_movements.c.balance_movement_date,
+            func.sum(balance_movements.c.balance_movement_amount).label("actual_amount"),
+        )
+        .where(balance_movements.c.balance_id == balance_id)
+        .group_by(balance_movements.c.balance_movement_date)
+    )
+    if from_date:
+        subquery_actual_amount = subquery_actual_amount.where(
+            balance_movements.c.balance_movement_date >= date_to_datetime(from_date)
+        )
+    if to_date:
+        subquery_actual_amount = subquery_actual_amount.where(
+            balance_movements.c.balance_movement_date <= date_to_datetime(to_date)
+        )
+    subquery_actual_amount = subquery_actual_amount.subquery()
+
+    query = (
+        select(
+            forecasts.c.forecast_date,
+            forecasts.c.forecast_amount,
+            subquery_actual_amount.c.actual_amount,
+        )
+        .select_from(forecasts)
+        .join(subquery_actual_amount, subquery_actual_amount.c.balance_movement_date == forecasts.c.forecast_date)
+        .where(forecasts.c.balance_id == balance_id)
+        .order_by(forecasts.c.forecast_date)
+    )
+
+    rows = cast(List[ForecastVarianceRow], await db.fetch_all(query))
+
+    if not rows:
+        raise exceptions.NotFoundError(
+            f"Forecast or actual amounts for balance_id={balance_id} {from_date=} {to_date=} not found"
+        )
+
+    return models.ForecastVariance(
+        balance_id=balance_id,
+        from_date=from_date,
+        to_date=to_date,
+        data=[
+            models.ForecastVarianceData(
+                dt=row.forecast_date,
+                actual_amount=row.actual_amount,
+                forecast_amount=row.forecast_amount,
+                variance=variance([row.actual_amount, row.forecast_amount]),
+                mape=mape(float(row.actual_amount), float(row.forecast_amount)),
+            )
+            for row in rows
+        ],
+    )
