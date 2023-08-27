@@ -44,13 +44,15 @@
                 }}</v-tab>
               </v-tabs>
               <v-tabs-items v-model="tabs">
-                <v-tab-item key="tab-table">
-                  <v-container fluid>
-                    <v-data-table id="forecast-table"></v-data-table>
-                  </v-container>
-                </v-tab-item>
                 <v-tab-item key="tab-chart">
                   <SPForecastVarianceChart :variance-data="varianceData.data" />
+                </v-tab-item>
+                <v-tab-item key="tab-table">
+                  <v-container fluid>
+                    <SPForecastVarianceTable
+                      :variance-data="varianceData.data"
+                    />
+                  </v-container>
                 </v-tab-item>
               </v-tabs-items>
             </v-container>
@@ -62,15 +64,17 @@
 </template>
 
 <script>
-import axios from '@/services/axios';
-import moment from 'moment';
+import BalanceFilter from '@/components/BalanceFilter.vue';
 import DateRangeFilter from '@/components/DateRangeFilter';
 import SPForecastVarianceChart from '@/components/ForecastVarianceChart.vue';
-import BalanceFilter from '@/components/BalanceFilter.vue';
+import SPForecastVarianceTable from '@/components/ForecastVarianceTable.vue';
+import axios from '@/services/axios';
+import moment from 'moment';
 
 export default {
   components: {
     SPForecastVarianceChart,
+    SPForecastVarianceTable,
     BalanceFilter,
     DateRangeFilter,
   },
